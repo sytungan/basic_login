@@ -8,8 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.navigation.fragment.findNavController
 import com.ok.vinova_test.databinding.FragmentLoginBinding
+import com.ok.vinova_test.viewmodel.ShareDataViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 
@@ -19,6 +22,7 @@ import kotlinx.coroutines.flow.*
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
+    private val shareDataViewModel : ShareDataViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -38,6 +42,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initWatcher()
         binding.btnLogin.setOnClickListener {
+            shareDataViewModel.setValue(binding.etUsername.text.toString())
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
     }
